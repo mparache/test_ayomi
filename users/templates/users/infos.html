@@ -1,0 +1,49 @@
+{% extends 'users/base.html' %}
+
+<script type="text/javascript">
+
+    $('#Modal').on('show.bs.modal', function(event){
+        var button = $(event.relatedTarget)
+        var recipient = button.data('#new_email')
+        var modal = $(this)
+        modal.find('.modal-body input').val(recipient)
+    });
+    
+</script>
+
+{% block content %}
+    <h1>Bienvenue {{user.username}}</h1>
+
+    <h5>Vos informations:</h5>
+        <div id="result">Email: {{ user.email }}</div>
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal" data-whatever="@getbootstrap">Modifier mes informations</button>
+
+    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">Modifications</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Adresse email actuelle: {{ user.email }}</label>
+            </div>
+            <div class="form-group">
+                <label>Nouvelle adresse email:</label>
+                <input type="email" class="form-control" id="new_email" placeholder="Renseigner email"></input>
+            </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="save">Enregistrer</button>
+        </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
